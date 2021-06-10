@@ -1,22 +1,20 @@
-import React, { useRef } from 'react';
+import React, { useRef, FormEvent, RefObject } from 'react';
 
 export const MainControls = (props: {
   addNewTodo: (text: string) => void,
   markAllAsReady: () => void
 }) => {
 
-  const _inputRef: React.RefObject<HTMLInputElement> = useRef(null);
+  const _inputRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const input = _inputRef.current;
-    if (input) {
-      const currentNewTodoText = input.value.trim();
+    const input: HTMLInputElement = _inputRef.current as HTMLInputElement;
+    const currentNewTodoText: string = input.value.trim();
       if (currentNewTodoText) {
         input.value = '';
         props.addNewTodo(currentNewTodoText);
       }
-    }
   }
 
   return (
